@@ -101,15 +101,21 @@ def p_statement_expr(t):
     'statement : expression'
     print(t[1])
 
-def p_expression_binop(t):
-    '''expression : expression PLUS expression
-                | expression MINUS expression
-                | expression TIMES expression
-                | expression DIVIDE expression'''
-    if t[2] == '+'  : t[0] = t[1] + t[3]
-    elif t[2] == '-': t[0] = t[1] - t[3]
-    elif t[2] == '*': t[0] = t[1] * t[3]
-    elif t[2] == '/': t[0] = t[1] / t[3]
+def p_statement_binop_add(t):
+    '''statement :    NAME EQUALS expression PLUS expression'''
+    vmi.encode("op add {} {} {}".format(t[1],t[3],t[5]))
+
+def p_statement_binop_sub(t):
+    '''statement :    NAME EQUALS expression MINUS expression'''
+    vmi.encode("op sub {} {} {}".format(t[1],t[3],t[5]))
+
+def p_statement_binop_mul(t):
+    '''statement :    NAME EQUALS expression TIMES expression'''
+    vmi.encode("op mul {} {} {}".format(t[1],t[3],t[5]))
+
+def p_statement_binop_div(t):
+    '''statement :    NAME EQUALS expression DIVIDE expression'''
+    vmi.encode("op div {} {} {}".format(t[1],t[3],t[5]))
 
 def p_expression_uminus(t):
     'expression : MINUS expression %prec UMINUS'

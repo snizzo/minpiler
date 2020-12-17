@@ -7,3 +7,5 @@ mucca = "prova 4/7)"
 maiale = "()+-/*#@|^&%=!><$ àèìòù
 
 heheh   bah"
+topo = topo + cane
+cane = 3+5
