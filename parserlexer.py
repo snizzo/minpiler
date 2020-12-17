@@ -21,7 +21,9 @@ tokens = (
 'LPAREN',
 'RPAREN',
 'NAME',
-'newline'
+'newline',
+'QUOTE',
+'STRING'
 )
 
 # Regular expression rules for simple tokens
@@ -32,6 +34,7 @@ t_EQUALS  = r'='
 t_DIVIDE  = r'/'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
+t_QUOTE   = r'\"'
 
 # matching reserved words
 def t_NAME(t):
@@ -58,6 +61,13 @@ t_ignore  = ' \t'
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
+
+# Regex that recognizes alphanumeric chars, 
+# whitespace, and other special characters
+def t_STRING(t):
+    r'["][\w\s ()+-/*#@|\^&%=!><$]+["]'
+    t.value = str(t.value)
+    return t
 
 lexer = lex.lex()
 
@@ -112,6 +122,14 @@ def p_expression_group(t):
 def p_expression_number(t):
     'expression : NUMBER'
     t[0] = t[1]
+
+def p_expression_string(t):
+    'expression : STRING'
+    t[0] = t[1]
+
+def p_expression_quote(t):
+    'expression : QUOTE STRING QUOTE'
+    t[0] = t[1]+t[2]+t[3]
 
 def p_expression_name(t):
     'expression : NAME'

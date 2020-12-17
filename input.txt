@@ -2,3 +2,8 @@ esempio = 10
 cane = 15
 gatto = cane
 topo = 2
+cavallo = "(2+3)"
+mucca = "prova 4/7)"
+maiale = "()+-/*#@|^&%=!><$ àèìòù
+
+heheh   bah"
