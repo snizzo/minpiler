@@ -1,0 +1,4 @@
+esempio = 10
+cane = 15
+gatto = cane
+topo = 2
