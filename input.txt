@@ -1,18 +1,5 @@
-esempio = 10
-cane = 15
-gatto = cane
-topo = 2
-cavallo = "(2+3)"
-mucca = "prova 4/7)"
-maiale = "()+-/*#@|^&%=!><$ àèìòù
-
-heheh   bah"
-topo = topo + cane
-cane = 3+5
-topo += 1
-topo -= 1
-topo *= 1
-topo /= 1
-print(mucca)
+cane = 5
+pippo = 10
+esempio = ((10*20)/cane + (50*60)/pippo)
+print(esempio)
 flush(message1)
-test(aaa,bbb,ccc,ddd)

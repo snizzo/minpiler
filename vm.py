@@ -44,6 +44,22 @@ class Stack:
         self.currentStack = -1
 
         self.push()
+        
+        self.tempList = []
+
+    def requestTempVar(self):
+        i = 0
+        while "tempopvar"+str(i) in self.tempList:
+            i += 1
+        varname = "tempopvar"+str(i)
+        self.tempList.append(varname)
+        return varname
+
+    def releaseTempVar(self, varname):
+        if not varname in self.tempList:
+            return
+
+        self.tempList.remove(varname)
 
     def funcall(self,fname,params=None):
         params = params.split()

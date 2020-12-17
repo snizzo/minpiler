@@ -130,6 +130,22 @@ def p_statement_expr(t):
 # def p_statement_relop_less_equal(t):
 #     '''statement : expression LESS EQUALS expression'''
 #     vmi.encode("{} {}{} {}".format(t[1],t[2],t[3],t[4]))
+
+def p_binop_generic(t):
+    '''expression : expression PLUS expression
+                | expression MINUS expression
+                | expression TIMES expression
+                | expression DIVIDE expression'''
+    
+    vname = vmi.stack.requestTempVar()
+    if t[2] == '+'  : vmi.encode("op add {} {} {}".format(vname, t[1],t[3]))
+    elif t[2] == '-': vmi.encode("op sub {} {} {}".format(vname, t[1],t[3]))
+    elif t[2] == '*': vmi.encode("op mul {} {} {}".format(vname, t[1],t[3]))
+    elif t[2] == '/': vmi.encode("op div {} {} {}".format(vname, t[1],t[3]))
+    vmi.stack.releaseTempVar(t[1])
+    vmi.stack.releaseTempVar(t[2])
+    t[0] = vname
+
 def p_statement_funcall(t):
     '''statement : NAME LPAREN expressions RPAREN'''
     vmi.funcall(t[1],t[3])
