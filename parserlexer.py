@@ -17,6 +17,8 @@ tokens = (
 'MINUS',
 'TIMES',
 'EQUALS',
+# 'GREATER',
+# 'LESS',
 'DIVIDE',
 'LPAREN',
 'RPAREN',
@@ -31,6 +33,8 @@ t_PLUS    = r'\+'
 t_MINUS   = r'-'
 t_TIMES   = r'\*'
 t_EQUALS  = r'='
+# t_GREATER = r'>'
+# t_LESS    = r'<'
 t_DIVIDE  = r'/'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
@@ -100,6 +104,22 @@ def p_statement_assign(t):
 def p_statement_expr(t):
     'statement : expression'
     print(t[1])
+
+# def p_statement_relop_greater_than(t):
+#     '''statement : expression GREATER expression'''
+#     vmi.encode("{} {} {}".format(t[1],t[2],t[3]))
+
+# def p_statement_relop_less_than(t):
+#     '''statement : expression LESS expression'''
+#     vmi.encode("{} {} {}".format(t[1],t[2],t[3]))
+
+# def p_statement_relop_greater_equal(t):
+#     '''statement : expression GREATER EQUALS expression'''
+#     vmi.encode("{} {}{} {}".format(t[1],t[2],t[3],t[4]))
+
+# def p_statement_relop_less_equal(t):
+#     '''statement : expression LESS EQUALS expression'''
+#     vmi.encode("{} {}{} {}".format(t[1],t[2],t[3],t[4]))
 
 def p_statement_binop_add(t):
     '''statement :    NAME EQUALS expression PLUS expression'''
