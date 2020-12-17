@@ -9,3 +9,10 @@ maiale = "()+-/*#@|^&%=!><$ àèìòù
 heheh   bah"
 topo = topo + cane
 cane = 3+5
+topo += 1
+topo -= 1
+topo *= 1
+topo /= 1
+print(mucca)
+flush(message1)
+test(aaa,bbb,ccc,ddd)

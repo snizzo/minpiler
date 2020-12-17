@@ -25,7 +25,12 @@ tokens = (
 'NAME',
 'newline',
 'QUOTE',
-'STRING'
+'STRING',
+'PLUSEQUALS',
+'MINUSEQUALS',
+'TIMESEQUALS',
+'DIVIDEEQUALS',
+'COMMA'
 )
 
 # Regular expression rules for simple tokens
@@ -39,6 +44,11 @@ t_DIVIDE  = r'/'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
 t_QUOTE   = r'\"'
+t_PLUSEQUALS = r'\+='
+t_MINUSEQUALS = r'-='
+t_TIMESEQUALS = r'\*='
+t_DIVIDEEQUALS = r'/='
+t_COMMA   = r','
 
 # matching reserved words
 def t_NAME(t):
@@ -120,22 +130,49 @@ def p_statement_expr(t):
 # def p_statement_relop_less_equal(t):
 #     '''statement : expression LESS EQUALS expression'''
 #     vmi.encode("{} {}{} {}".format(t[1],t[2],t[3],t[4]))
+def p_statement_funcall(t):
+    '''statement : NAME LPAREN expressions RPAREN'''
+    vmi.funcall(t[1],t[3])
 
 def p_statement_binop_add(t):
     '''statement :    NAME EQUALS expression PLUS expression'''
     vmi.encode("op add {} {} {}".format(t[1],t[3],t[5]))
 
+def p_statement_binop_shortadd(t):
+    '''statement :    NAME PLUSEQUALS expression'''
+    vmi.encode("op add {} {} {}".format(t[1],t[1],t[3]))
+
 def p_statement_binop_sub(t):
     '''statement :    NAME EQUALS expression MINUS expression'''
     vmi.encode("op sub {} {} {}".format(t[1],t[3],t[5]))
+
+def p_statement_binop_shortsub(t):
+    '''statement :    NAME MINUSEQUALS expression'''
+    vmi.encode("op sub {} {} {}".format(t[1],t[1],t[3]))
 
 def p_statement_binop_mul(t):
     '''statement :    NAME EQUALS expression TIMES expression'''
     vmi.encode("op mul {} {} {}".format(t[1],t[3],t[5]))
 
+def p_statement_binop_shortmul(t):
+    '''statement :    NAME TIMESEQUALS expression'''
+    vmi.encode("op mul {} {} {}".format(t[1],t[1],t[3]))
+
 def p_statement_binop_div(t):
     '''statement :    NAME EQUALS expression DIVIDE expression'''
     vmi.encode("op div {} {} {}".format(t[1],t[3],t[5]))
+
+def p_statement_binop_shortdiv(t):
+    '''statement :    NAME DIVIDEEQUALS expression'''
+    vmi.encode("op div {} {} {}".format(t[1],t[1],t[3]))
+
+def p_expressions_list(t):
+    '''expressions : expression COMMA expressions'''
+    t[0] = t[1]+" "+t[3]
+
+def p_expressions_void(t):
+    '''expressions : expression'''
+    t[0] = t[1]
 
 def p_expression_uminus(t):
     'expression : MINUS expression %prec UMINUS'
