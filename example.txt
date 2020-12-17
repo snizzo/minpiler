@@ -1,0 +1,3 @@
+set x 30
+set y 40
+add x x 10
