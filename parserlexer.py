@@ -24,7 +24,7 @@ tokens = (
 'RPAREN',
 'NAME',
 'newline',
-'QUOTE',
+# 'QUOTE',
 'STRING',
 'PLUSEQUALS',
 'MINUSEQUALS',
@@ -43,7 +43,7 @@ t_LESS    = r'<'
 t_DIVIDE  = r'/'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
-t_QUOTE   = r'\"'
+# t_QUOTE   = r'\"'
 t_PLUSEQUALS = r'\+='
 t_MINUSEQUALS = r'-='
 t_TIMESEQUALS = r'\*='
@@ -79,7 +79,7 @@ def t_error(t):
 # Regex that recognizes alphanumeric chars, 
 # whitespace, and other special characters
 def t_STRING(t):
-    r'["][\w\s ()+-/*#@|\^&%=!><$]+["]'
+    r'["][\w\s ()+-/*#@|\^&%=!><$\\\\]+["]'
     t.value = str(t.value)
     return t
 
@@ -193,10 +193,6 @@ def p_expression_number(t):
 def p_expression_string(t):
     'expression : STRING'
     t[0] = t[1]
-
-def p_expression_quote(t):
-    'expression : QUOTE STRING QUOTE'
-    t[0] = t[1]+t[2]+t[3]
 
 def p_expression_name(t):
     'expression : NAME'
