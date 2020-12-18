@@ -17,8 +17,8 @@ tokens = (
 'MINUS',
 'TIMES',
 'EQUALS',
-# 'GREATER',
-# 'LESS',
+'GREATER',
+'LESS',
 'DIVIDE',
 'LPAREN',
 'RPAREN',
@@ -38,8 +38,8 @@ t_PLUS    = r'\+'
 t_MINUS   = r'-'
 t_TIMES   = r'\*'
 t_EQUALS  = r'='
-# t_GREATER = r'>'
-# t_LESS    = r'<'
+t_GREATER = r'>'
+t_LESS    = r'<'
 t_DIVIDE  = r'/'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
@@ -115,21 +115,21 @@ def p_statement_expr(t):
     'statement : expression'
     print(t[1])
 
-# def p_statement_relop_greater_than(t):
-#     '''statement : expression GREATER expression'''
-#     vmi.encode("{} {} {}".format(t[1],t[2],t[3]))
+def p_statement_relop_greater_than(t):
+    '''statement : expression GREATER expression'''
+    vmi.encode("{} {} {}".format(t[1],t[2],t[3]))
 
-# def p_statement_relop_less_than(t):
-#     '''statement : expression LESS expression'''
-#     vmi.encode("{} {} {}".format(t[1],t[2],t[3]))
+def p_statement_relop_less_than(t):
+    '''statement : expression LESS expression'''
+    vmi.encode("{} {} {}".format(t[1],t[2],t[3]))
 
-# def p_statement_relop_greater_equal(t):
-#     '''statement : expression GREATER EQUALS expression'''
-#     vmi.encode("{} {}{} {}".format(t[1],t[2],t[3],t[4]))
+def p_statement_relop_greater_equal(t):
+    '''statement : expression GREATER EQUALS expression'''
+    vmi.encode("{} {}{} {}".format(t[1],t[2],t[3],t[4]))
 
-# def p_statement_relop_less_equal(t):
-#     '''statement : expression LESS EQUALS expression'''
-#     vmi.encode("{} {}{} {}".format(t[1],t[2],t[3],t[4]))
+def p_statement_relop_less_equal(t):
+    '''statement : expression LESS EQUALS expression'''
+    vmi.encode("{} {}{} {}".format(t[1],t[2],t[3],t[4]))
 
 def p_binop_generic(t):
     '''expression : expression PLUS expression
@@ -150,33 +150,21 @@ def p_statement_funcall(t):
     '''statement : NAME LPAREN expressions RPAREN'''
     vmi.funcall(t[1],t[3])
 
-def p_statement_binop_add(t):
-    '''statement :    NAME EQUALS expression PLUS expression'''
-    vmi.encode("op add {} {} {}".format(t[1],t[3],t[5]))
 
 def p_statement_binop_shortadd(t):
     '''statement :    NAME PLUSEQUALS expression'''
     vmi.encode("op add {} {} {}".format(t[1],t[1],t[3]))
 
-def p_statement_binop_sub(t):
-    '''statement :    NAME EQUALS expression MINUS expression'''
-    vmi.encode("op sub {} {} {}".format(t[1],t[3],t[5]))
 
 def p_statement_binop_shortsub(t):
     '''statement :    NAME MINUSEQUALS expression'''
     vmi.encode("op sub {} {} {}".format(t[1],t[1],t[3]))
 
-def p_statement_binop_mul(t):
-    '''statement :    NAME EQUALS expression TIMES expression'''
-    vmi.encode("op mul {} {} {}".format(t[1],t[3],t[5]))
 
 def p_statement_binop_shortmul(t):
     '''statement :    NAME TIMESEQUALS expression'''
     vmi.encode("op mul {} {} {}".format(t[1],t[1],t[3]))
 
-def p_statement_binop_div(t):
-    '''statement :    NAME EQUALS expression DIVIDE expression'''
-    vmi.encode("op div {} {} {}".format(t[1],t[3],t[5]))
 
 def p_statement_binop_shortdiv(t):
     '''statement :    NAME DIVIDEEQUALS expression'''
