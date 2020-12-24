@@ -1,9 +1,6 @@
-cane = 5
-pippo = 10
-esempio = ((10*20)/cane + (50*60)/pippo)
-print(esempio)
+pippo = 2
+while (pippo < 100) {
+    pippo = pippo + 2
+}
+print(pippo)
 flush(message1)
-
-gatto > 20
-cane <= gatto
-piovra < 30+cane
