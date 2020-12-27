@@ -141,6 +141,19 @@ def p_before_while(t):
     vmi.debug(t, "SHIFTWHILE")
     vmi.openBlock()
 
+def p_statement_if(t):
+    '''statement : beforeif IF expression LCURLY statements RCURLY'''
+    recoded = vmi.closeBlock()
+    vmi.openBlock()
+    targetjump = vmi.closeBlock() + 1 #skip all the if code
+    vmi.encode("jump {} {}".format(targetjump,t[3]), recoded)
+
+def p_before_if(t):
+    '''beforeif :'''
+    vmi.debug(t, "SHIFTIF")
+    vmi.encode("_if_recode_line")
+    vmi.openBlock()
+
 def p_statement_relop_greater_than(t):
     '''expression : expression GREATER expression'''
     vmi.debug(t,"GREATERTHAN")

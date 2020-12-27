@@ -1,6 +1,15 @@
 pippo = 2
-while (pippo < 100) {
-    pippo = pippo + 2
+while (pippo >= 100) {
+    x = 3
+    while(pippo <100){
+        pippo = pippo + 2
+    }
+}
+if(pippo>2){
+    if(cane>=6){
+        bella = 7
+    }
+    cane = 4
 }
 print(pippo)
 flush(message1)

@@ -22,11 +22,11 @@ class VirtualMachine:
     def closeBlock(self):
         return self.stack.popJump()
     
-    def encode(self, code:str):
+    def encode(self, code:str, line = None):
         if self.stack.getContext() == None:
             print("ERROR: Empty stack found!!!")
         else:
-            self.stack.encodeOnLocalBlock(code)
+            self.stack.encodeOnLocalBlock(code, line)
     
     def funcall(self,fname,fparams=None):
         self.vtable.funcall(fname,fparams)
@@ -71,8 +71,14 @@ class Block:
             return
         self.varTranslation.append([vfrom,vto])
     
-    def encode(self, code):
-        self.code.append(code)
+    def encode(self, code, line):
+        if line == None:
+            self.code.append(code)
+        else:
+            if len(self.code)>=line:
+                self.code[line-1] = code
+            else:
+                print("ERROR: can't recode asm at line: ", line)
     
     def __str__(self):
         out = "---CODE BLOCK---\n"
@@ -149,8 +155,8 @@ class Stack:
     def addVariable(self, name:str, value):
         pass #FIXME
 
-    def encodeOnLocalBlock(self, code):
-        self.getContext().encode(code)
+    def encodeOnLocalBlock(self, code, line = None):
+        self.getContext().encode(code, line)
 
     #push new variable stack block
     def push(self):
